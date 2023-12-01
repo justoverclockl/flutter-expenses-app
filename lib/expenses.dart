@@ -29,6 +29,21 @@ class _ExpensesState extends State<Expenses> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // appbar reserve the space for camera and phone actions and include a bar for buttons...
+      appBar: AppBar(
+        title: const Text(
+          'Expense Tracker App',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.deepPurple,
+        actions: [
+          IconButton(
+            onPressed: () {},
+            color: Colors.white,
+            icon: const Icon(Icons.add),
+          ),
+        ],
+      ),
       body: Column(
         children: [
           const Text('chart'),
