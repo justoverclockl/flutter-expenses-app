@@ -17,6 +17,7 @@ class _NewExpenseState extends State<NewExpense> {
   final _titleController = TextEditingController();
   final _amountController = TextEditingController();
   DateTime? _selectedDate;
+  Category _selectedCategory = Category.leisure;
 
   void _presentDatePicker() async {
     final now = DateTime.now();
@@ -32,6 +33,15 @@ class _NewExpenseState extends State<NewExpense> {
     // this line will be execute when value is available
     setState(() {
       _selectedDate = pickedDate;
+    });
+  }
+
+  void _storeCategoryValue(value) {
+    setState(() {
+      if (value == null) {
+        return;
+      }
+      _selectedCategory = value;
     });
   }
 
@@ -93,23 +103,26 @@ class _NewExpenseState extends State<NewExpense> {
               )
             ],
           ),
+          const SizedBox(
+            height: 16,
+          ),
           Row(
             children: [
               DropdownButton(
+                value: _selectedCategory,
                 items: Category.values
                     .map(
                       (category) => DropdownMenuItem(
                         value: category,
                         child: Text(
-                          category.name.toString(),
+                          category.name.toUpperCase(),
                         ),
                       ),
                     )
                     .toList(),
-                onChanged: (value) {
-                  print(value);
-                },
+                onChanged: (value) => _storeCategoryValue(value),
               ),
+              const Spacer(),
               TextButton(
                 onPressed: () {
                   // close the modal
