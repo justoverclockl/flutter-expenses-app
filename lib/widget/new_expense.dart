@@ -1,3 +1,4 @@
+import 'package:expense_app/models/expense.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -94,6 +95,21 @@ class _NewExpenseState extends State<NewExpense> {
           ),
           Row(
             children: [
+              DropdownButton(
+                items: Category.values
+                    .map(
+                      (category) => DropdownMenuItem(
+                        value: category,
+                        child: Text(
+                          category.name.toString(),
+                        ),
+                      ),
+                    )
+                    .toList(),
+                onChanged: (value) {
+                  print(value);
+                },
+              ),
               TextButton(
                 onPressed: () {
                   // close the modal
