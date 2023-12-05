@@ -83,7 +83,6 @@ class _ExpensesState extends State<Expenses> {
           'Expense Tracker App',
           style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Colors.deepPurple,
         actions: [
           IconButton(
             onPressed: _openAddExpenseOverlay,
