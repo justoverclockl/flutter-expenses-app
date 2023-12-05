@@ -49,6 +49,17 @@ class _ExpensesState extends State<Expenses> {
 
   @override
   Widget build(BuildContext context) {
+    Widget mainContent = const Center(
+      child: Text('No expenses found. Start adding some!'),
+    );
+
+    if (_registeredExpenses.isNotEmpty) {
+      mainContent = ExpensesList(
+        onRemoveExpense: _removeExpense,
+        expensesList: _registeredExpenses,
+      );
+    }
+
     return Scaffold(
       // appbar reserve the space for camera and phone actions and include a bar for buttons...
       appBar: AppBar(
@@ -69,10 +80,7 @@ class _ExpensesState extends State<Expenses> {
         children: [
           const Text('chart'),
           Expanded(
-            child: ExpensesList(
-              onRemoveExpense: _removeExpense,
-              expensesList: _registeredExpenses,
-            ),
+            child: mainContent,
           )
         ],
       ),
