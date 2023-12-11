@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:expense_app/models/expense.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -50,6 +53,45 @@ class _NewExpenseState extends State<NewExpense> {
     });
   }
 
+  void _showDialog() {
+    if (Platform.isIOS) {
+      showCupertinoDialog(
+        context: context,
+        builder: (ctx) => CupertinoAlertDialog(
+          title: const Text('Invalid input'),
+          content: const Text(
+              'Please make sure a valid title, amount, date and category was entered'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(ctx);
+              },
+              child: const Text('Okay'),
+            )
+          ],
+        ),
+      );
+    } else {
+      showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: const Text('Invalid input'),
+          content: const Text(
+              'Please make sure a valid title, amount, date and category was entered'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(ctx);
+              },
+              child: const Text('Okay'),
+            )
+          ],
+        ),
+      );
+    }
+    // show validation error messages
+  }
+
   void _submitExpenseData() {
     // double tryParse try to convert the string into number if is valid
     // used on a text return null.
@@ -59,22 +101,7 @@ class _NewExpenseState extends State<NewExpense> {
     final isDateInvalid = _selectedDate == null;
 
     if (textIsInvalid || amountIsInvalid || isDateInvalid) {
-      // show validation error messages
-      showDialog(
-          context: context,
-          builder: (ctx) => AlertDialog(
-                title: const Text('Invalid input'),
-                content: const Text(
-                    'Please make sure a valid title, amount, date and category was entered'),
-                actions: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pop(ctx);
-                    },
-                    child: const Text('Okay'),
-                  )
-                ],
-              ));
+      _showDialog();
       return;
     }
 
