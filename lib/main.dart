@@ -1,5 +1,6 @@
 import 'package:expense_app/expenses.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 var kColorScheme = ColorScheme.fromSeed(
   seedColor: const Color.fromARGB(255, 96, 59, 181),
@@ -11,6 +12,8 @@ var kDarkColorScheme = ColorScheme.fromSeed(
 );
 
 void main() {
+  // this will allow our app only in portrait mode
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(MaterialApp(
     // dark theme
     darkTheme: ThemeData.dark().copyWith(
